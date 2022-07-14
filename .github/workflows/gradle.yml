@@ -2,9 +2,15 @@ name: Kotlin CI with Gradle
 
 on:
   push:
+<<<<<<< HEAD
     branches: [ master, main ]
   pull_request:
     branches: [ master, main ]
+=======
+    branches: '*'
+  pull_request:
+    branches: '*'
+>>>>>>> ffff68714198f1ca26fa37cd93bad2cfff275d18
 
 jobs:
   build:
