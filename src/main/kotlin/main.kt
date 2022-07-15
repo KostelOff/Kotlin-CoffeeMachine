@@ -1,94 +1,42 @@
-const val WATER = 900
-const val MILK = 840
-const val BEAN = 420
-const val CUPS = 9
-const val MONEY = 550
+var water = 400
+var milk = 200
+var bean = 50
+var cups = 4
+var money = 100
 const val PASSWORD = "qwerty"
 
 fun main() {
-
     println("""
-Hello!
-Select an action:
-1 - Buy a coffee drink
-2 - Load stocks
-3 - Collect the proceeds
-4 - Information about ingredients
-""".trimIndent())
+        Hello!
+        What a beautiful day! 
+        Maybe a cup of fragrant coffee? ;)
+    """.trimIndent())
 
     while (true) {
+        println("""
+Select an action (click on the button):
+1 - Buy a coffee drink
+2 - Load stocks
+3 - Information about stocks
+4 - For the administrator
+0 - Exit
+""".trimIndent())
         val readLn = readln()
         if (readLn == "1") {
             buy()
-            break
         } else if (readLn == "2") {
             fill()
-            break
         } else if (readLn == "3") {
-            take()
-            break
+            informationAboutStocks()
         } else if (readLn == "4") {
-
-            information()
-            continue
+            actionsForAdministrator()
+        } else if (readLn == "0") {
+            break
         } else {
-            println("""
-                Missing action!
-                Select an action:
-                1 - Buy a coffee drink
-                2 - Load stocks
-                3 - Collect the proceeds
-                4 - Information about ingredients
-            """.trimIndent())
-            continue
+            println("Missing action!")
         }
     }
-}
-
-fun machineForBuy(waterMinus: Int, milkMinus: Int, beanMinus: Int, cupMinus: Int, moneyPlus: Int) {
-
-    val water = WATER - waterMinus
-    val milk = MILK - milkMinus
-    val bean = BEAN - beanMinus
-    val cups = CUPS - cupMinus
-    MONEY + moneyPlus
-    println("""
-        Good choice!
-        Starting the process.
-    """.trimIndent())
-
-    for (i in 0..100 step 10) {
-        print("$i%...")
-        Thread.sleep(500L)
-    }
-    println("Ending the process.")
-    println("""    
-        Done!
-        Have a good day! =)
-        
-        The coffee machine has:
-        $water ml of water
-        $milk ml of milk
-        $bean g of coffee beans
-        $cups disposable cups
-    """.trimIndent())
-}
-
-fun machineForFill(waterPlus: Int, milkPlus: Int, beanPlus: Int, cupPlus: Int) {
-
-    val water = WATER + waterPlus
-    val milk = MILK + milkPlus
-    val bean = BEAN + beanPlus
-    val cups = CUPS + cupPlus
-    MONEY
-    println("""
-        The coffee machine has:
-        $water ml of water
-        $milk ml of milk
-        $bean g of coffee beans
-        $cups disposable cups
-        Have a good day!
-    """.trimIndent())
+    println("Have a good day! See you soon! ;)")
 }
 
 fun buy() {
@@ -105,7 +53,6 @@ Select an action:
         val readLn = readln()
         if (readLn == "1") {
             machineForBuy(250, 0, 16, 1, 4)
-            break
         } else if (readLn == "2") {
             machineForBuy(350, 75, 20, 1, 7)
             break
@@ -118,21 +65,47 @@ Select an action:
                 Select an action:
                 1 - Espresso ($4)
                 2 - Latte ($7)
-                3 - CCappuccino ($6)
+                3 - Cappuccino ($6)
             """.trimIndent())
-            continue
         }
     }
 }
 
-fun fill() {
-    println("""
-        Now the coffee machine has:
-        $WATER of water
-        $MILK ml of milk
-        $BEAN g of coffee beans
-        $CUPS disposable cups
+fun machineForBuy(waterMinus: Int, milkMinus: Int, beanMinus: Int, cupMinus: Int, moneyPlus: Int) {
+
+    if (water < waterMinus) {
+        println("Sorry, not enough water!")
+    } else if (milk < milkMinus) {
+        println("Sorry, not enough milk!")
+    } else if (bean < beanMinus) {
+        println("Sorry, not enough beans!")
+    } else if (cups < cupMinus) {
+        println("Sorry, not enough cups!")
+    } else {
+        println("""
+        Good choice!
+        Starting the process.
     """.trimIndent())
+
+        for (i in 0..100 step 10) {
+            print("$i%...")
+            Thread.sleep(500L)
+        }
+        println("""
+            Ending the process.
+            Done!
+            
+        """.trimIndent())
+
+        water -= waterMinus
+        milk -= milkMinus
+        bean -= beanMinus
+        cups -= cupMinus
+        money += moneyPlus
+    }
+}
+
+fun fill() {
 
     println("Write how many ml of water do you want to add:")
     val waterAdd = try {
@@ -157,7 +130,6 @@ fun fill() {
     }
 
     println("Write how many grams of coffee beans do you want to add:")
-
     val beansAdd = try {
         readln().toInt()
     } catch (e: Exception) {
@@ -179,56 +151,79 @@ fun fill() {
         readln().toInt()
     }
     machineForFill(waterAdd, milkAdd, beansAdd, cupsAdd)
+    println("Done!")
 }
 
-fun take() {
-    println("""
-        To get access to cash, enter the password:
-        (to exit, enter "0")
-    """.trimIndent())
+fun machineForFill(waterPlus: Int, milkPlus: Int, beanPlus: Int, cupPlus: Int) {
 
+    water += waterPlus
+    milk += milkPlus
+    bean += beanPlus
+    cups += cupPlus
+}
+
+fun informationAboutStocks() {
+    println("""
+        The coffee machine has:
+        $water ml of water
+        $milk ml of milk
+        $bean g of coffee beans
+        $cups disposable cups
+
+        """.trimIndent())
+}
+
+fun actionsForAdministrator() {
     while (true) {
+
+        println("""
+            To access, enter the password 
+            (to access the main menu, press "0")
+        """.trimIndent())
+
         val password = readln()
+
         if (password == PASSWORD) {
             println("""
         Access allowed!
         
-        Proceeds: $$MONEY
-        The coffee machine has:
-        $WATER of water
-        $MILK ml of milk
-        $BEAN g of coffee beans
-        $CUPS disposable cups
-        $${0} of money
+        Proceeds: $$money
+        
         """.trimIndent())
-            break
+
+            while (true) {
+                println("""
+                Do you want to take the money?
+                Select an action (click on the button):
+                1 - Take the money
+                2 - Exit
+            """.trimIndent())
+
+                when (readln()) {
+                    "1" -> {
+                        if (money <= 0){
+                            println("""
+                                I'm not a bank. I do not issue a loan. There is no money. But you hold on!
+                            """.trimIndent())
+                        } else{
+                            money -= money
+                            println("Done!")
+                        }
+                        break
+                    }
+                    "2" -> break
+                    else -> {
+                        println("Missing action!")
+                        continue
+                    }
+                }
+            }
         } else if (password == "0") {
             break
         } else {
-            println("""
-        Access denied!!!
-        To get access to cash, enter the password:
-        (to exit, enter "0")
-    """.trimIndent())
+            println("Access denied!")
             continue
         }
+        break
     }
-    println("Have a good day!")
-}
-
-fun information() {
-    println("""
-        The coffee machine has:
-        $WATER of water
-        $MILK ml of milk
-        $BEAN g of coffee beans
-        $CUPS disposable cups
-        $$MONEY of money
-        
-        Select an action:
-        1 - Buy a coffee drink
-        2 - Load stocks
-        3 - Collect the proceeds
-        4 - Information about ingredients
-        """.trimIndent())
 }
