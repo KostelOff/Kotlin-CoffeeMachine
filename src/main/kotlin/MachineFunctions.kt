@@ -38,7 +38,7 @@ Select an action:
         }
     }
 
-    private fun machineForBuy(waterMinus: Int, milkMinus: Int, beanMinus: Int, cupMinus: Int, moneyPlus: Int) {
+    fun machineForBuy(waterMinus: Int, milkMinus: Int, beanMinus: Int, cupMinus: Int, moneyPlus: Int) {
 
         if (waterStocks < waterMinus) {
             println("Sorry, not enough water!")
@@ -121,7 +121,7 @@ Select an action:
         println("Done!")
     }
 
-    private fun machineForFill(waterPlus: Int, milkPlus: Int, beanPlus: Int, cupPlus: Int) {
+    fun machineForFill(waterPlus: Int, milkPlus: Int, beanPlus: Int, cupPlus: Int) {
 
         waterStocks += waterPlus
         milkStocks += milkPlus
